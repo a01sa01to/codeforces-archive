@@ -1,4 +1,4 @@
-from typing import Generic, Optional
+from typing import Optional
 
 
 def ConvertVerdict(verdict: str) -> str:
