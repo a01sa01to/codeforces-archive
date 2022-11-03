@@ -1,4 +1,4 @@
-# cp-archive (Codeforces)
+# codeforces-archive
 
 My Codeforces Submission Archive
 
