@@ -1,3 +1,5 @@
-requests
+requests >= 2.28.1
 beautifulsoup4
 GitPython
+selenium
+get_chrome_driver

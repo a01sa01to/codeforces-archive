@@ -1,15 +1,20 @@
 import requests
-from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 import get
 from datatypes import Submission, Contest
 
 
-def code(s: Submission) -> str:
+def code(s: Submission, driver: webdriver.Chrome) -> str:
+    wait = WebDriverWait(driver, 10)
     url = get.submission_url(s)
-    res = requests.get(url).text
-    soup = BeautifulSoup(res, "html.parser")
-    code = soup.select_one("pre#program-source-text")
+    driver.get(url)
+    driver.implicitly_wait(10)
+    wait.until(EC.presence_of_element_located((By.ID, "program-source-text")))
+    code = driver.find_element(By.ID, "program-source-text")
     if code is None:
         return "// Could not fetch submission.\n// Perhaps it is private or deleted."
     return code.text.replace("\r", "")

@@ -2,12 +2,15 @@ import os
 import time
 from datetime import datetime
 
+import selen
 import get
 import fetch
 from commit import commit
 
 
 def main():
+    driver = selen.driver_init()
+
     lastSubId = get.last_submission_id()
     print("Last Submission ID:", lastSubId)
 
@@ -48,7 +51,7 @@ def main():
             file.write(f" * Result: {s.verdict}\n")
             file.write(f" * Execution Time: {s.timeConsumedMillis} ms\n")
             file.write(" */\n\n")
-            file.write(fetch.code(s))
+            file.write(fetch.code(s, driver))
         commit(s, save_path)
         cnt += 1
 
